@@ -53,3 +53,41 @@ services:
 networks:
   A:
     driver: bridge
+
+
+############################ SEVERAL STOLEN TEMPLATE
+### Notebook
+  # datascience-notebook:
+  #     image: jupyter:0.0.3
+  #     volumes:
+  #         - /Users/maltequast/PycharmProjects/algo/demand-forecasting:/app/
+  #     ports:
+  #         - "8888:8888"
+  #     command: "jupyter notebook --port=8888 --ip=0.0.0.0 --NotebookApp.allow_remote_access=True --allow-root --NotebookApp.token='' --NotebookApp.password=''"
+  #     user: root
+  #     environment:
+  #         NB_USER: docker_worker
+  #         NB_UID: 1008
+  #         NB_GID: 1011
+  #         CHOWN_HOME: 'yes'
+  #         CHOWN_HOME_OPTS: -R
+  #     env_file:
+  #         - jupyter.env
+  #     networks:
+  #         - A
+
+### Postgres
+  # db:
+  #   restart: always
+  #   image: postgres:11
+  #   container_name: mlflow_db
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - A
+  #   environment:
+  #     - POSTGRES_USER=${PG_USER}
+  #     - POSTGRES_PASSWORD=${PG_PASSWORD}
+  #     - POSTGRES_DATABASE=${PG_DATABASE}
+  #   volumes:
+  #     - ./db_data:/var/lib/postgresql/data/

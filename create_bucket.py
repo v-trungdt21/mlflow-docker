@@ -3,36 +3,41 @@ import os
 from minio import Minio
 from minio.error import InvalidResponseError
 
-accessID = os.environ.get('AWS_ACCESS_KEY_ID')
-accessSecret =  os.environ.get('AWS_SECRET_ACCESS_KEY')
-minioUrl =  os.environ.get('MLFLOW_S3_ENDPOINT_URL')
-bucketName =  os.environ.get('AWS_BUCKET_NAME')
+accessID = os.environ.get("MINIO_ROOT_USER")
+accessSecret = os.environ.get("MINIO_ROOT_PASSWORD")
+minioUrl = os.environ.get("MLFLOW_S3_ENDPOINT_URL")
+bucketName = os.environ.get("BUCKET_NAME")
 
 if accessID == None:
-    print('[!] AWS_ACCESS_KEY_ID environemnt variable is empty! run \'source .env\' to load it from the .env file')
+    print(
+        "[!] MINIO_ROOT_USER environemnt variable is empty! run 'source .env' to load it from the .env file"
+    )
     exit(1)
 
 if accessSecret == None:
-    print('[!] AWS_SECRET_ACCESS_KEY environemnt variable is empty! run \'source .env\' to load it from the .env file')
+    print(
+        "[!] MINIO_ROOT_PASSWORD environemnt variable is empty! run 'source .env' to load it from the .env file"
+    )
     exit(1)
 
 if minioUrl == None:
-    print('[!] MLFLOW_S3_ENDPOINT_URL environemnt variable is empty! run \'source .env\' to load it from the .env file')
+    print(
+        "[!] MLFLOW_S3_ENDPOINT_URL environemnt variable is empty! run 'source .env' to load it from the .env file"
+    )
     exit(1)
 
-    
+
 if bucketName == None:
-    print('[!] AWS_BUCKET_NAME environemnt variable is empty! run \'source .env\' to load it from the .env file')
+    print(
+        "[!] BUCKET_NAME environemnt variable is empty! run 'source .env' to load it from the .env file"
+    )
     exit(1)
 
-minioUrlHostWithPort = minioUrl.split('//')[1]
-print('[*] minio url: ',minioUrlHostWithPort)
+minioUrlHostWithPort = minioUrl.split("//")[1]
+print("[*] minio url: ", minioUrlHostWithPort)
 
 s3Client = Minio(
-    minioUrlHostWithPort,
-    access_key=accessID,
-    secret_key=accessSecret,
-    secure=False
+    minioUrlHostWithPort, access_key=accessID, secret_key=accessSecret, secure=False
 )
 
 s3Client.make_bucket(bucketName)
